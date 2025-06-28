@@ -1,5 +1,6 @@
+# TODO: deprecated
 import pytest
-from alter_provinces import Provinator
+from Provinator.provinator import Provinator
 
 
 # Creates test provinces file with given content blocks

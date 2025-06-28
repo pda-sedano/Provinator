@@ -2,7 +2,7 @@ import re
 from filter import Filter
 
 
-class LhsRhsFilter(Filter):
+class EqualsFilter(Filter):
     def __init__(self, patterns: list[tuple[str, str]]) -> None:
         self.patterns = patterns
 

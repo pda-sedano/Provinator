@@ -1,4 +1,4 @@
-from alter_provinces import Provinator
+from Provinator.provinator import Provinator
 
 
 if __name__ == '__main__':

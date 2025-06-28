@@ -7,8 +7,11 @@ class Alter(ABC):
     '''
     
     @abstractmethod
-    def apply(self):
+    def apply(self, province):
         '''
-        Applies the given alteration.
+        Applies the given alteration to a province
+
+        Params
+        - province: the province to alter.
         '''
         pass
