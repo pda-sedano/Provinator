@@ -1,4 +1,7 @@
 # TODO: deprecated
+from Provinator.alterations.add_or_update_equals import AddOrUpdateEquals
+from Provinator.filters.equals_filter import EqualsFilter
+from Provinator.filters.province_id_filter import ProvinceIdFilter
 import pytest
 from Provinator.provinator import Provinator
 
@@ -28,15 +31,18 @@ def province(tmp_path):
 
 @pytest.fixture
 def provinator(tmp_path):
-    return Provinator(
-        provinces_folder = tmp_path,
-        province_ids = [
-            490
-        ],
-        patterns_to_search = [("trade_goods", "slaves")],
-        new_owner = 'HSS',
-        keywords = ["owner", "controller", "add_core", "culture"],
-    )
+    provinator = Provinator(provinces_folder=tmp_path, filter_mode='or')
+    provinator.add_filter(ProvinceIdFilter(ids=[490]))
+    provinator.add_filter(EqualsFilter(patterns=[('trade_goods', 'slaves')]))
+    provinator.add_alteration(AddOrUpdateEquals(patterns=[
+        ('owner', 'HSS'),
+        ('controller', 'HSS'),
+        ('add_core', 'HSS'),
+        ('culture', 'HSS'),
+        ('trade_goods', 'gold'),
+    ], block_append_keyword='discovered_by'))
+
+    return provinator
 
 
 @pytest.mark.parametrize("initial", [
@@ -120,7 +126,7 @@ def test_should_not_alter(province, provinator, initial):
                     ("add_core", "HSS"),
                     ("culture", "HSS"),
                     ("religion", "None"),
-                    ("trade_goods", "slaves"),
+                    ("trade_goods", "gold"),
                 ],
             ]
         )
@@ -161,7 +167,7 @@ def test_should_not_alter(province, provinator, initial):
                     ("add_core", "HSS"),
                     ("culture", "HSS"),
                     ("religion", "None"),
-                    ("trade_goods", "slaves"),
+                    ("trade_goods", "gold"),
                 ],
                 [
                     ("discovered_by", "Gallifreyans"),
@@ -204,7 +210,7 @@ def test_should_not_alter(province, provinator, initial):
                     ("add_core", "HSS"),
                     ("culture", "HSS"),
                     ("religion", "None"),
-                    ("trade_goods", "slaves"),
+                    ("trade_goods", "gold"),
                     ("discovered_by", "Gallifreyans"),
                 ],
                 [
@@ -230,7 +236,7 @@ def test_should_not_alter(province, provinator, initial):
             "42 - Gallifrey (1).txt",
             [
                 [
-                    ("trade_goods", "slaves"),
+                    ("trade_goods", "gold"),
                 ],
                 [
                     ("discovered_by", "Gallifreyans"),

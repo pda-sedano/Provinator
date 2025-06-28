@@ -28,6 +28,7 @@ class AddOrUpdateEquals(Alter):
         province.write()
 
     # TODO: currently doesn't append to EoF if block_append_keyword not set
+    # TODO: if no block containing keyword exists I believe it just doesn't get appended
     def _update_or_add(self, content, lhs, new_rhs):
         """Update or add a line in the content."""
         pattern = re.compile(rf'^{re.escape(lhs)}\s*=\s*.*$', re.MULTILINE)

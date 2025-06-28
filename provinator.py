@@ -18,48 +18,27 @@ class Provinator:
         self.filters = []
         self.alterations = [] # TODO: what about ordering here?
         self.filter_mode = filter_mode
-        # self.province_ids = province_ids
-        # self.patterns_to_search = patterns_to_search
-        # self.new_owner = new_owner
-        # self.keywords = keywords
-        # self.block_to_append_keyword = block_to_append_keyword
+
     
-    def filter_by_province_ids(province_ids):
+    # TODO: All this seems way too coupled between the filter and the Provinator. Think about how I'd unit test this.
+    # How to fix?
+    def add_filter(self, province_filter):
         '''
-        Adds a filter specifying that only files with the given province ids should be affected.
+        Adds a filter for the provinces.
 
         Params
-        - province_ids: the ids of the desired provinces.
+        - province_filter: Filter to add.
         '''
-        pass
+        self.filters.append(province_filter)
 
-    def filter_by_patterns(patterns):
+    def add_alteration(self, alteration):
         '''
-        Adds a filter specifying that only files containing the given patterns should be affected.
-
-        Params
-        - patterns: A list of patterns, currently tuples of the form (lhs, rhs) representing the pattern "lhs = rhs"
-        '''
-        pass
-
-    def set_block_append_keyword(keyword):
-        '''
-        Specifies a keyword dictating which block of text patterns will be appended to.
-        Patterns will be appended to the first block containing the given keyword.
-        '''
-        pass
-
-    def patterns_to_add(patterns):
-        '''
-        Specifies a list of patterns to add to the province file. Currently these are only of the form "lhs = rhs".
-        If a pattern of the form "lhs = different rhs" already exists, it will be modified in-place to "lhs = rhs".
-        Else, the pattern "lhs = rhs" will be appended either to the end of the file, or based on the specification
-        set by 'set_block_append_keyword'.
+        Adds an alteration that will be applied to the provinces.
 
         Params
-        - patterns: A list of patterns, currently tuples of the form (lhs, rhs)
+        - alteration: The alteration to add.
         '''
-        pass
+        self.alterations.append(alteration)
 
     def provinate(self):
         '''
